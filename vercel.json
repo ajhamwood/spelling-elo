@@ -1,0 +1,12 @@
+{
+  "functions": {
+    "api/entrypoint.js": {
+      "memory": 128,
+      "maxDuration": 10
+    }
+  },
+  "routes": [
+    { "src": "/(.*)", "dest": "/api/entrypoint.js" },
+    { "src": "/(.*)", "status": 404, "dest": "/public/404.html" }
+  ]
+}
