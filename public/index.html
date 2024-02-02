@@ -8,15 +8,136 @@
   <meta name='description' content=''>
   <link rel='icon' type='image/x-icon' href='data:image/x-icon;base64,'>
   <style>
+@font-face {
+  font-family: 'Margo';
+  src: url('fonts/Margo.woff2') format('woff2'),
+      url('fonts/Margo.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap }
+@font-face {
+  font-family: 'P22Underground';
+  src: url('fonts/P22Underground.woff2') format('woff2'),
+      url('fonts/P22Underground.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap }
+@font-face {
+  font-family: 'Darker-Heavy';
+  src: url('fonts/Darker-Heavy.woff2') format('woff2'),
+      url('fonts/Darker-Heavy.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap }
+
 html, body { height: 100% }
 body {
   margin: 0;
   color: #ddd;
   background-color: #000 }
+main {
+  text-align: center;
+  font-family: 'P22Underground';
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  padding: 1rem;
+  height: calc(100lvh - 2rem);
+  background: url(images/Scroll2.svg) 50% 50% / 110% black }
+  main > :not(.play-window) {
+    flex: 0;
+    margin: 1rem 0 }
+  h1 {
+    font: bold 3em/1rem 'Margo';
+    margin-bottom: 0 }
+    .elo-value { color: chocolate }
+  h2 { font: 2em/1rem 'Margo' }
+  aside {
+    display: inline-flex;
+    flex-flow: row;
+    gap: calc(4px + .5em);
+    width: 90lvw;
+    align-items: center }
+    aside > * { padding: .5em }
+    .button {
+      background: #ddd;
+      color: black;
+      border-radius: .5em;
+      box-shadow: 2px 2px #ddd;
+      border: 2px solid black }
+  .play-window {
+    flex: 1;
+    background: black;
+    border: 1px dotted #ddd;
+    display: grid;
+    width: calc(90lvw - 2rem);
+    padding: 1rem;
+    grid-gap: 1rem;
+    grid-template:
+      "toggle attempt" 3em
+      "list   list   " auto /
+      3rem auto }
+    .play-window > * { font-size: xx-large }
+    #toggle-play {
+      grid-area: toggle;
+      min-width: 1.4em;
+      cursor: grab }
+    #toggle-play:active {
+      box-shadow: none;
+      transform: translate(4px, 4px);
+      cursor: grabbing }
+    #toggle-play::before { content: '∞' }
+    #attempt {
+      grid-area: attempt;
+      font-family: inherit;
+      pointer-events: none;
+      background: black;
+      color: #ddd;
+      border: 2px solid #ddd }
+    #played-feed {
+      grid-area: list;
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      font: 3em Darker-Heavy;
+      text-transform: uppercase }
+      #played-feed > li { line-height: calc(2rem + 1px) }
+      .incorrect {
+        display: inline-block;
+        color: red;
+        position: relative }
+      .incorrect::after {
+        background: #ff6347e0;
+        width: calc(100% + .6rem);
+        height: .4rem;
+        content: "";
+        display: block;
+        position: absolute;
+        transform: translateY(-1.2rem);
+        left: -.3rem }
   </style>
 </head>
 <body>
-  <h1>Spelling Elo</h1>
+  <main>
+    <h1>Spelling Elo: <span class="elo-value">1500</span></h1>
+    <h2>spellingwasp</h2>
+    <aside>
+      <span class="button">How to play</span>
+      <div>Just type the words correctly, you dork :3</div>
+    </aside>
+    <div class="play-window">
+      <button id="toggle-play" class="button"></button>
+      <input type="text" id="attempt" size="1"/>
+      <ul id="played-feed">
+        <li>contumelious</li>
+        <li><span class="incorrect">darnelle</span></li>
+        <li>chasuble</li>
+        <li>aspidistra</li>
+      </ol>
+    </div>
+    <div class="stats">Stats...</div>
+    <div class="references">Thank you for to playing my game :)</div>
+  </main>
   <script src="js/machine.js"></script>
   <script>
 
